@@ -10,12 +10,12 @@ ROS 2 stack for switching between clock-based and GUI-based pose inputs.
 
 ## Setup
 
-Run the following commands in the terminal:
+Clone the repository and run the following commands from the root of the cloned repo:
 
 ```bash
 sudo apt update
 pip3 install pygame
-cd ~/ros2_ws
+cd <cloned_repo>
 colcon build
 source install/setup.bash
 ```
