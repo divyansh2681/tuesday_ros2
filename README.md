@@ -1,0 +1,46 @@
+# Tuesday Lab ROS2 Pose Controller
+
+ROS 2 stack for switching between clock-based and GUI-based pose inputs.
+
+## Packages
+
+- `clock_pose_issuer`: publishes poses based on system time
+- `gui_pose_issuer`: GUI interface to click target pose
+- `motion_controller`: selects active pose and publishes `cmd_vel`
+
+## Setup
+
+Run the following commands in the terminal:
+
+```bash
+sudo apt update
+pip3 install pygame
+cd ~/ros2_ws
+colcon build
+source install/setup.bash
+```
+
+## Launch
+
+ros2 launch motion_controller full_stack.launch.py
+
+## Launch Arguments
+
+| Argument         | Default     | Description                           |
+|------------------|-------------|---------------------------------------|
+| `headless`       | `false`     | Skips the GUI (pygame window)         |
+| `controller_exec`| `controller`| Custom motion controller executable   |
+| `sim`            | `false`     | Placeholder for simulation code       |
+
+## Examples
+
+```bash
+ros2 launch motion_controller full_stack.launch.py headless:=true
+ros2 launch motion_controller full_stack.launch.py controller_exec:=my_controller
+```
+
+## Behavior
+
+- Follows GUI pose if one was issued in the last 30 seconds
+- Falls back to clock-based pose otherwise
+- Publishes velocity to `/cmd_vel`
