@@ -22,7 +22,9 @@ source install/setup.bash
 
 ## Launch
 
+```bash
 ros2 launch motion_controller full_stack.launch.py
+```
 
 ## Launch Arguments
 
@@ -32,15 +34,22 @@ ros2 launch motion_controller full_stack.launch.py
 | `controller_exec`| `controller`| Custom motion controller executable   |
 | `sim`            | `false`     | Placeholder for simulation code       |
 
+## Behavior
+
+- Follows GUI pose if one was issued in the last 30 seconds
+- Falls back to clock-based pose otherwise
+- Publishes velocity to `/cmd_vel`
+
+## Plug-and-Play Motion Controller Integration
+
+This stack is designed for easy testing of custom motion controllers. Your controller should:  
+
+Subscribe to: `/target_pose` (`geometry_msgs/PoseStamped`)  
+Publish to: `/cmd_vel` (`geometry_msgs/Twist`)  
+
 ## Examples
 
 ```bash
 ros2 launch motion_controller full_stack.launch.py headless:=true
 ros2 launch motion_controller full_stack.launch.py controller_exec:=my_controller
 ```
-
-## Behavior
-
-- Follows GUI pose if one was issued in the last 30 seconds
-- Falls back to clock-based pose otherwise
-- Publishes velocity to `/cmd_vel`
